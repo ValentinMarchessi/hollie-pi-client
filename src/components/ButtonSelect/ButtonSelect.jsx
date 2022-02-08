@@ -17,7 +17,7 @@ export default function ButtonSelect({ options, handler }) {
 				options.map((option) => {
 					//option.value == selected es seguro, es una comparación number == 'number' en caso de que option.value sea un número,
                     let className = '';
-                    if (option.value == selected) className = 'selected';
+                    if (parseInt(option.value) === parseInt(selected)) className = 'selected';
 					return (
 						<button className={className} key={option.value} value={option.value} onClick={handleButton}>
 							{option.name}
