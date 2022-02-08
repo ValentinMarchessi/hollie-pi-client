@@ -39,7 +39,7 @@ export default function ActivityForm() {
 	}
 
 	function handleSubmit() {
-        axios.post(`http://localhost:3001/activity`, state)
+        axios.post(`https://hollie-pi.herokuapp.com/activity`, state)
             .then(() => { setSubmited(true);})
             .catch((err) => console.error(err));
 	}
