@@ -24,7 +24,7 @@ export default function CountryDetails() {
     
     useEffect(() => {
         (async function () {
-            await axios.get(`https://hollie-pi.herokuapp.com/countries/${id}`).then(({ data }) => {
+            await axios.get(`http://localhost:3001/countries/${id}`).then(({ data }) => {
                 setCountry(data);
             })
             isLoading(false);

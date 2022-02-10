@@ -6,7 +6,7 @@ export function loadPage(index, {order, filter}) {
             let query = `?page=${index}`;
             if (order.by && order.direction) query += `&orderBy=${order.by}&direction=${order.direction}`;
             if (filter.type && filter.value) query += `&filter=${filter.type}&filterValue=${filter.value}`;
-            const page = await axios.get(`https://hollie-pi.herokuapp.com/countries${query}`).then(({data}) => data);
+            const page = await axios.get(`http://localhost:3001/countries${query}`).then(({data}) => data);
             dispatch({ type: "LOAD_PAGE", payload: page });
         }
         catch (error) {
@@ -18,7 +18,7 @@ export function loadPage(index, {order, filter}) {
 export function loadCountries() {
     return async function (dispatch) {
         try {
-            const countries = await axios.get(`https://hollie-pi.herokuapp.com/countries`).then(({ data }) => data);
+            const countries = await axios.get(`http://localhost:3001/countries`).then(({ data }) => data);
             dispatch({type: 'LOAD_COUNTRIES', payload: countries});
         }
         catch (error) {
@@ -30,7 +30,7 @@ export function loadCountries() {
 export function loadActivities() {
     return async function (dispatch) {
         try {
-            const activities = await axios.get(`https://hollie-pi.herokuapp.com/activity`).then(({ data }) => data);
+            const activities = await axios.get(`http://localhost:3001/activity`).then(({ data }) => data);
             dispatch({ type: 'LOAD_ACTIVITIES', payload: activities });
         }
         catch (error) {
@@ -42,7 +42,7 @@ export function loadActivities() {
 export function loadContinents() {
     return async function (dispatch) {
         try {
-            const continents = await axios.get('https://hollie-pi.herokuapp.com/countries/continents/').then(({ data }) => data);
+            const continents = await axios.get('http://localhost:3001/countries/continents/').then(({ data }) => data);
             dispatch({ type: 'LOAD_CONTINENTS', payload: continents });
         }
         catch (error) {

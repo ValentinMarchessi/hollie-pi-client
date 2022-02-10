@@ -11,7 +11,7 @@ export default function Searchbar() {
         if (input) {
             (async () => {
                 try {
-                    const response = await axios.get(`https://hollie-pi.herokuapp.com/countries?name=${input}`)
+                    const response = await axios.get(`http://localhost:3001/countries?name=${input}`)
                     setResults(response.data);
                 }
                 catch {
