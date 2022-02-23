@@ -1,68 +1,61 @@
-.container{
-    width: 50vw;
-    margin: 0 25vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    h1{
-        font-style: italic;
-        font-weight: 400;
-        margin: 20px 0;
-    }
+@mixin selection{
+    background-color: pink;
+    color: red;
 }
+
 
 .searchbar{
-    position: relative;
-    width: fit-content;
-    &:focus-within{
-        .dropdown{
-            display:flex;
+    $border-radius: 10px;
+    $background-color: rgb(108, 150, 108);
+    width: 200px;
+    margin:auto;
+    padding: 2px 10px;
+
+    input{
+        height: 30px;
+        width:inherit;
+        padding: inherit;
+        border: inherit;
+        background-color: $background-color;
+        border-radius: $border-radius;
+
+        &:focus-visible{
+            outline: none;            
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        &:focus-within + .resultBox{
+            display:block;
         }
     }
-}
 
-.input{
-    width: 20vw;
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
-    box-shadow: 2px 1px 5px rgba(0,0,0,.4);
-    text-align: center;
-}
+    .resultBox{
+        display:none;
+        position: absolute;
+        width: inherit;
+        padding: inherit;
+        border: inherit;
+        background-color: $background-color;
+        z-index: 10;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
 
-.dropdown{
-    position: absolute;
-    width: 70%;
-    margin: auto;
-    left: 0;
-    right: 0;
-    width: 200px;
-    max-height: 500px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display:none;
-    align-items: center;
-    flex-direction: column;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    scrollbar-width: thin;
-    scrollbar-color: #D4DCFF #4C5454;
-    &::-webkit-scrollbar{
-        display: none;
-    }
-    a{
-        text-decoration: none;
-        text-align: center;
-        color:white;
-        background-color: #941C2F;
-        width: 100%;
-        padding: 10px 5%;
-        z-index: 20;
-        transition: background-color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), color 0.2s ease-in-out;
-        &:hover{
-            color: black;
-            background-color: #CBFF8C;
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            a{
+                text-decoration: none;
+                li{
+                    color: white;
+                    padding: none;
+                }
+                
+                &:hover li,
+                &:focus li{
+                    @include selection
+                }
+            }
         }
     }
 }

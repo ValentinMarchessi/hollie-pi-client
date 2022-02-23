@@ -3,7 +3,6 @@ import style from './CardContainer.module.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPage } from '../../redux/actions';
-import SearchOptions from '../SearchOptions/SearchOptions.jsx';
 
 function PageNav() {
 	const { count } = useSelector((store) => store.page.current);
@@ -76,7 +75,6 @@ export default function CardContainer() {
 
 	return (
 		<div className={style.main}>
-			<SearchOptions />
 			{content ? (
 				<div className={style.cardContainer}>
 					{content.map((country) => (

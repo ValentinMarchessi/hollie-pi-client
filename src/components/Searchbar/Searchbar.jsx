@@ -1,49 +1,36 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import style from './Searchbar.module.scss';
 import { Link } from 'react-router-dom';
 
 export default function Searchbar() {
-    const [input, setInput] = useState("");
-    const [results, setResults] = useState([]);
+	const [countries, setCountries] = useState([]);
+    const [input, setInput] = useState('');
+    const searchbar = useRef();
 
-    useEffect(() => {
-        if (input) {
-            (async () => {
-                try {
-                    const response = await axios.get(`http://localhost:3001/countries?name=${input}`)
-                    setResults(response.data);
-                }
-                catch {
-                    setResults([]);
-                }
-            })();
-        } else {
-            setResults([]);
-        }
-    },[input,setResults])
+	useEffect(() => {
+		axios.get('https://hollie-pi.herokuapp.com/countries').then(({ data }) => setCountries(data));
+	}, [setCountries]);
 
-    function handleChange(e){
+    function handleChange(e) {
         const { value } = e.target;
-        setInput(value);
+		setInput(value);
     }
 
-    return (
-        <div className={style.container}>
-            <div className={style.searchbar}>
-                <input type="text" className={style.input} placeholder="Canada" onChange={handleChange} />
-                {results.length ?
-                    <div className={style.dropdown}>
-                        {results.map((result) =>
-                            <Link to={`/country/${result.id}`}>
-                                {result.name}
-                            </Link>
-                        )}
-                    </div>
-                    :
-                    <div></div>
-                }
-            </div>
-        </div>
-    )
+    const results = countries
+		.filter((country) => country.name.startsWith(input))
+		.map((country) => (
+			<Link key={country.id} to={`/country/${country.id}`}>
+				<li>{country.name}</li>
+			</Link>
+        ));
+
+	return (
+		<div className={style.searchbar} ref={searchbar}>
+			<input type="text" placeholder="Canada" onChange={handleChange} />
+			<div className={style.resultBox}>
+				<ul>{input && results.length ? results : <li>{input ? <h2>Couldn't find countries.</h2> : placeholderCountries}</li>}</ul>
+			</div>
+		</div>
+	);
 }
